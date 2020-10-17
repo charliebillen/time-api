@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"time"
 
@@ -20,5 +21,6 @@ func main() {
 		Handler:      timeServer,
 	}
 
+	log.Printf("Starting server: %s", httpServer.Addr)
 	httpServer.ListenAndServe()
 }
