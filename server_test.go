@@ -27,7 +27,7 @@ func TestServerRouting(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			rr, rq := setupRequest(tt.path)
 
-			srv := &api.Server{}
+			srv := &api.Server{api.DefaultTimeProvider}
 			srv.ServeHTTP(rr, rq)
 
 			assertHasStatus(t, rr, tt.status)

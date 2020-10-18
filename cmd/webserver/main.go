@@ -11,7 +11,9 @@ import (
 const oneSecond = 1 * time.Second
 
 func main() {
-	timeServer := &api.Server{}
+	timeServer := &api.Server{
+		TimeProvider: api.DefaultTimeProvider,
+	}
 
 	httpServer := http.Server{
 		Addr:         ":8000",

@@ -3,13 +3,9 @@ package api
 import (
 	"encoding/json"
 	"net/http"
-	"time"
 )
 
-// TimeProvider returns the time
-type TimeProvider func() time.Time
-
-// Server encapsulayes server's dependencies
+// Server encapsulates the server dependencies
 type Server struct {
 	TimeProvider TimeProvider
 }
@@ -29,7 +25,7 @@ func handleNotFound(w http.ResponseWriter) {
 }
 
 func handleGetTime(w http.ResponseWriter, tp TimeProvider) {
-	t := getTime(tp)
+	t := tp()
 	rsp := response{
 		Hour:   t.Hour(),
 		Minute: t.Minute(),
@@ -37,13 +33,6 @@ func handleGetTime(w http.ResponseWriter, tp TimeProvider) {
 	}
 	w.Header().Set("content-type", "application/json")
 	json.NewEncoder(w).Encode(rsp)
-}
-
-func getTime(tp TimeProvider) time.Time {
-	if tp == nil {
-		return time.Now().UTC()
-	}
-	return tp()
 }
 
 type response struct {
