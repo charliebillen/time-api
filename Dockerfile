@@ -4,7 +4,7 @@ ADD . /build
 WORKDIR /build
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o webserver cmd/webserver/main.go
 
-FROM alpine:3.12.0
+FROM scratch
 EXPOSE 8000/tcp
 COPY --from=build /build/webserver .
 ENTRYPOINT ["./webserver"]
